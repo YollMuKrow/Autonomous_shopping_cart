@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>robot_arm_gazebo</name>
+  <version>0.0.0</version>
+  <description>The ROBOTARM_gazebo package</description>
+    <author email="lheritier.alexis@gmail.com">Alexis Lheritier</author>
+    <maintainer email="lheritier.alexis@gmail.com" />
+    <license>BSD</license>
+    
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+  <build_depend>gazebo_ros</build_depend>
+  <exec_depend>joint_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher_gui</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>rviz</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  
+  <export>
+  	<gazebo_ros gazebo_model_path="${prefix}/models"/>
+  </export>
+  
+</package>
+  

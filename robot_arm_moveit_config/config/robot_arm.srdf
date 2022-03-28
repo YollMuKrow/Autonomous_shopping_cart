@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="robot_arm">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="arm">
+        <joint name="base_to_bottom_joint"/>
+        <joint name="bottom_joint_to_bottom_arm"/>
+        <joint name="bottom_arm_to_middle_joint"/>
+        <joint name="middle_joint_to_middle_arm"/>
+        <joint name="middle_arm_to_upper_joint"/>
+        <joint name="upper_joint_to_upper_arm"/>
+        <joint name="upper_arm_to_grabber_joint"/>
+        <joint name="grabber_joint_to_grabber_arm"/>
+        <joint name="grabber_arm_to_grabber_piston"/>
+        <joint name="grabber_piston_to_grabber_hand"/>
+    </group>
+    <group name="hand">
+        <joint name="grabber_hand_to_finger1"/>
+        <joint name="grabber_hand_to_finger2"/>
+        <joint name="grabber_hand_to_finger3"/>
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="close_hand" group="hand">
+        <joint name="grabber_hand_to_finger1" value="3.3702"/>
+        <joint name="grabber_hand_to_finger2" value="0"/>
+        <joint name="grabber_hand_to_finger3" value="0"/>
+    </group_state>
+    <group_state name="open_hand" group="hand">
+        <joint name="grabber_hand_to_finger1" value="4.7123"/>
+        <joint name="grabber_hand_to_finger2" value="1.4835"/>
+        <joint name="grabber_hand_to_finger3" value="1.5708"/>
+    </group_state>
+    <group_state name="start" group="arm">
+        <joint name="base_to_bottom_joint" value="0"/>
+        <joint name="bottom_arm_to_middle_joint" value="0"/>
+        <joint name="bottom_joint_to_bottom_arm" value="0"/>
+        <joint name="grabber_arm_to_grabber_piston" value="0"/>
+        <joint name="grabber_joint_to_grabber_arm" value="0"/>
+        <joint name="grabber_piston_to_grabber_hand" value="0"/>
+        <joint name="middle_arm_to_upper_joint" value="0"/>
+        <joint name="middle_joint_to_middle_arm" value="0"/>
+        <joint name="upper_arm_to_grabber_joint" value="0"/>
+        <joint name="upper_joint_to_upper_arm" value="0"/>
+    </group_state>
+    <group_state name="waiting" group="arm">
+        <joint name="base_to_bottom_joint" value="0"/>
+        <joint name="bottom_arm_to_middle_joint" value="1.5707"/>
+        <joint name="bottom_joint_to_bottom_arm" value="0"/>
+        <joint name="grabber_arm_to_grabber_piston" value="-0.055"/>
+        <joint name="grabber_joint_to_grabber_arm" value="-3.1415"/>
+        <joint name="grabber_piston_to_grabber_hand" value="0"/>
+        <joint name="middle_arm_to_upper_joint" value="1.5707"/>
+        <joint name="middle_joint_to_middle_arm" value="3.1415"/>
+        <joint name="upper_arm_to_grabber_joint" value="3.1415"/>
+        <joint name="upper_joint_to_upper_arm" value="3.1415"/>
+    </group_state>
+    <group_state name="minimal_volume" group="arm">
+        <joint name="base_to_bottom_joint" value="0"/>
+        <joint name="bottom_arm_to_middle_joint" value="1.5707"/>
+        <joint name="bottom_joint_to_bottom_arm" value="1.5707"/>
+        <joint name="grabber_arm_to_grabber_piston" value="-0.055"/>
+        <joint name="grabber_joint_to_grabber_arm" value="-3.1415"/>
+        <joint name="grabber_piston_to_grabber_hand" value="0"/>
+        <joint name="middle_arm_to_upper_joint" value="1.5707"/>
+        <joint name="middle_joint_to_middle_arm" value="3.1415"/>
+        <joint name="upper_arm_to_grabber_joint" value="3.1415"/>
+        <joint name="upper_joint_to_upper_arm" value="3.1415"/>
+    </group_state>
+    <group_state name="hand_half_open" group="hand">
+        <joint name="grabber_hand_to_finger1" value="4.0491"/>
+        <joint name="grabber_hand_to_finger2" value="0.7786"/>
+        <joint name="grabber_hand_to_finger3" value="0.8331"/>
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="hand" parent_link="grabber_hand" group="hand" parent_group="arm"/>
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="fixedBase" type="fixed" parent_frame="world" child_link="base_link"/>
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="base_link" link2="bottom_arm" reason="Never"/>
+    <disable_collisions link1="base_link" link2="bottom_joint" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="middle_joint" reason="Never"/>
+    <disable_collisions link1="bottom_arm" link2="bottom_joint" reason="Adjacent"/>
+    <disable_collisions link1="bottom_arm" link2="middle_arm" reason="Never"/>
+    <disable_collisions link1="bottom_arm" link2="middle_joint" reason="Adjacent"/>
+    <disable_collisions link1="bottom_joint" link2="middle_arm" reason="Never"/>
+    <disable_collisions link1="bottom_joint" link2="middle_joint" reason="Never"/>
+    <disable_collisions link1="finger1" link2="finger3" reason="Never"/>
+    <disable_collisions link1="finger1" link2="grabber_arm" reason="Never"/>
+    <disable_collisions link1="finger1" link2="grabber_hand" reason="Adjacent"/>
+    <disable_collisions link1="finger1" link2="grabber_joint" reason="Never"/>
+    <disable_collisions link1="finger1" link2="grabber_piston" reason="Never"/>
+    <disable_collisions link1="finger2" link2="grabber_arm" reason="Never"/>
+    <disable_collisions link1="finger2" link2="grabber_hand" reason="Adjacent"/>
+    <disable_collisions link1="finger2" link2="grabber_joint" reason="Never"/>
+    <disable_collisions link1="finger3" link2="grabber_arm" reason="Never"/>
+    <disable_collisions link1="finger3" link2="grabber_hand" reason="Adjacent"/>
+    <disable_collisions link1="finger3" link2="grabber_joint" reason="Never"/>
+    <disable_collisions link1="finger3" link2="grabber_piston" reason="Never"/>
+    <disable_collisions link1="grabber_arm" link2="grabber_hand" reason="Never"/>
+    <disable_collisions link1="grabber_arm" link2="grabber_joint" reason="Adjacent"/>
+    <disable_collisions link1="grabber_arm" link2="grabber_piston" reason="Adjacent"/>
+    <disable_collisions link1="grabber_arm" link2="upper_arm" reason="Never"/>
+    <disable_collisions link1="grabber_hand" link2="grabber_joint" reason="Never"/>
+    <disable_collisions link1="grabber_hand" link2="grabber_piston" reason="Adjacent"/>
+    <disable_collisions link1="grabber_hand" link2="upper_arm" reason="Never"/>
+    <disable_collisions link1="grabber_joint" link2="grabber_piston" reason="Never"/>
+    <disable_collisions link1="grabber_joint" link2="upper_arm" reason="Adjacent"/>
+    <disable_collisions link1="grabber_joint" link2="upper_joint" reason="Never"/>
+    <disable_collisions link1="grabber_piston" link2="upper_arm" reason="Never"/>
+    <disable_collisions link1="middle_arm" link2="middle_joint" reason="Adjacent"/>
+    <disable_collisions link1="middle_arm" link2="upper_arm" reason="Never"/>
+    <disable_collisions link1="middle_arm" link2="upper_joint" reason="Adjacent"/>
+    <disable_collisions link1="middle_joint" link2="upper_joint" reason="Never"/>
+    <disable_collisions link1="upper_arm" link2="upper_joint" reason="Adjacent"/>
+</robot>

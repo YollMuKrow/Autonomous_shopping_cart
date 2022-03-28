@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+
+<script type="text/javascript" type="text/javascript">
+  // ROS connection script
+  var ros = new ROSLIB.Ros({
+    url : 'ws://localhost:9090'
+  });
+
+  ros.on('connection', function() {
+    document.getElementById("status").innerHTML = "Connected";
+    display(true);
+  });
+
+  ros.on('error', function(error) {
+    document.getElementById("status").innerHTML = "Error";
+    display(false);
+  });
+
+  ros.on('close', function() {
+    document.getElementById("status").innerHTML = "Closed";
+    display(false);
+  });
+//Test listener
+
+  var test_listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/txt_msg',
+    messageType : 'std_msgs/String'
+  });
+
+  test_listener.subscribe(function(m) {
+    document.getElementById("msg").innerHTML = m.data;
+  });
+
+  // MoveIT status 
+  var moveit_status_listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/moveit_status',
+    messageType : 'std_msgs/String'
+  });
+
+  moveit_status_listener.subscribe(function(m) {
+    document.getElementById("moveit_status").innerHTML = m.data;
+  });
+
+  // Robot status 
+  var robot_status_listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/robot_status',
+    messageType : 'std_msgs/String'
+  });
+
+  robot_status_listener.subscribe(function(m) {
+    document.getElementById("robot_status").innerHTML = m.data;
+  });
+  
+  //Robot arm position
+  var robot_position_listener = new ROSLIB.Topic({
+    ros : ros,
+    name : 'joint_states',
+    messageType : 'sensor_msgs/JointState'
+  });
+
+  robot_position_listener.subscribe(function(m) {
+    document.getElementById("robot_position").innerHTML = m.data;
+  });
+  
+
+  // Change the color of the status span
+  // Green -> connected
+  // Red -> Disconnected
+  function display(status){
+    if(status === true){
+      document.getElementById("status").style.color = "green";
+    }
+    else{
+      document.getElementById("status").style.color = "red";
+    }
+  }
+</script>
+</head>
+
+<body>
+  <h1>ROS User Interface for the ROBOT_ARM</h1>
+  <p>Connection status: <span id="status"></span></p>
+  <p>Testing listener : <span id="msg"></span></p>
+  <p>----------------------------------------------------------------</p>
+  <p>MoveIT status : <span id="moveit_status"></span></p>
+  <p>Robot status : <span id="robot_status"></span></p>
+  <p>Robot end-effector position : <span id="robot_position"></span></p>
+
+</body>
+</html>

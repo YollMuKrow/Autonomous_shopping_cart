@@ -1,0 +1,691 @@
+<sdf version='1.7'>
+  <model name='robot_arm'>
+    <link name='base_link'>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>1e+06</mass>
+        <inertia>
+          <ixx>0.03</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.03</iyy>
+          <iyz>0</iyz>
+          <izz>0.03</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='base_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='base_to_bottom_joint' type='revolute'>
+      <pose relative_to='base_link'>0.2 -0.2 0.2 -1.5708 -0 -1.5708</pose>
+      <parent>base_link</parent>
+      <child>bottom_joint</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <effort>1000</effort>
+          <velocity>0.2</velocity>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='bottom_joint'>
+      <pose relative_to='base_to_bottom_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.014131 -0.0797 0 0 -0 0</pose>
+        <mass>3.2015</mass>
+        <inertia>
+          <ixx>0.010208</ixx>
+          <ixy>0.00023255</ixy>
+          <ixz>-3.1585e-08</ixz>
+          <iyy>0.013642</iyy>
+          <iyz>-2.3611e-08</iyz>
+          <izz>0.013754</izz>
+        </inertia>
+      </inertial>
+      <collision name='bottom_joint_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/bottom_joint.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='bottom_joint_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/bottom_joint.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='bottom_joint_to_bottom_arm' type='revolute'>
+      <pose relative_to='bottom_joint'>0.08 -0.08 0 0 0 -3.14159</pose>
+      <parent>bottom_joint</parent>
+      <child>bottom_arm</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.5707</lower>
+          <upper>1.5707</upper>
+          <effort>1000</effort>
+          <velocity>0.2</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='bottom_arm'>
+      <pose relative_to='bottom_joint_to_bottom_arm'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.076343 0.1498 -0 0 -0 0</pose>
+        <mass>6.9965</mass>
+        <inertia>
+          <ixx>0.10239</ixx>
+          <ixy>-0.0012724</ixy>
+          <ixz>3.2569e-08</ixz>
+          <iyy>0.019404</iyy>
+          <iyz>-2.5392e-08</iyz>
+          <izz>0.10187</izz>
+        </inertia>
+      </inertial>
+      <collision name='bottom_arm_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/bottom_arm.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='bottom_arm_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/bottom_arm.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='bottom_arm_to_middle_joint' type='revolute'>
+      <pose relative_to='bottom_arm'>-0.075 0.325 0 0 -0 0</pose>
+      <parent>bottom_arm</parent>
+      <child>middle_joint</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <effort>1000</effort>
+          <velocity>0.2</velocity>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='middle_joint'>
+      <pose relative_to='bottom_arm_to_middle_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.014131 0.0797 -0 0 -0 0</pose>
+        <mass>3.20147</mass>
+        <inertia>
+          <ixx>0.0102082</ixx>
+          <ixy>-0.000232552</ixy>
+          <ixz>3.15854e-08</ixz>
+          <iyy>0.0136416</iyy>
+          <iyz>-2.36107e-08</iyz>
+          <izz>0.0137544</izz>
+        </inertia>
+      </inertial>
+      <collision name='middle_joint_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/middle_joint.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='middle_joint_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/middle_joint.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='middle_joint_to_middle_arm' type='revolute'>
+      <pose relative_to='middle_joint'>0.08 0.08 0 0 0 -3.14159</pose>
+      <parent>middle_joint</parent>
+      <child>middle_arm</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='middle_arm'>
+      <pose relative_to='middle_joint_to_middle_arm'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.076818 -0.099322 0 0 -0 0</pose>
+        <mass>5.1672</mass>
+        <inertia>
+          <ixx>0.046808</ixx>
+          <ixy>0.00079804</ixy>
+          <ixz>-9.6714e-08</ixz>
+          <iyy>0.014071</iyy>
+          <iyz>-6.9812e-08</iyz>
+          <izz>0.046281</izz>
+        </inertia>
+      </inertial>
+      <collision name='middle_arm_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/middle_arm.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='middle_arm_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/middle_arm.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='middle_arm_to_upper_joint' type='revolute'>
+      <pose relative_to='middle_arm'>-0.075 -0.225 0 0 0 -3.14159</pose>
+      <parent>middle_arm</parent>
+      <child>upper_joint</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='upper_joint'>
+      <pose relative_to='middle_arm_to_upper_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.014131 0.0797 -0 0 -0 0</pose>
+        <mass>3.20147</mass>
+        <inertia>
+          <ixx>0.0102082</ixx>
+          <ixy>-0.000232552</ixy>
+          <ixz>3.15854e-08</ixz>
+          <iyy>0.0136416</iyy>
+          <iyz>-2.36107e-08</iyz>
+          <izz>0.0137544</izz>
+        </inertia>
+      </inertial>
+      <collision name='upper_joint_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/upper_joint.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='upper_joint_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/upper_joint.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='upper_joint_to_upper_arm' type='revolute'>
+      <pose relative_to='upper_joint'>0.08 0.08 0 0 0 -3.14159</pose>
+      <parent>upper_joint</parent>
+      <child>upper_arm</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='upper_arm'>
+      <pose relative_to='upper_joint_to_upper_arm'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.076818 -0.099322 0 0 -0 0</pose>
+        <mass>5.1672</mass>
+        <inertia>
+          <ixx>0.046808</ixx>
+          <ixy>0.00079804</ixy>
+          <ixz>-9.6714e-08</ixz>
+          <iyy>0.014071</iyy>
+          <iyz>-6.9812e-08</iyz>
+          <izz>0.046281</izz>
+        </inertia>
+      </inertial>
+      <collision name='upper_arm_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/upper_arm.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='upper_arm_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/upper_arm.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='upper_arm_to_grabber_joint' type='revolute'>
+      <pose relative_to='upper_arm'>-0.075 -0.225 0 0 -0 0</pose>
+      <parent>upper_arm</parent>
+      <child>grabber_joint</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='grabber_joint'>
+      <pose relative_to='upper_arm_to_grabber_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.014131 -0.0797 0 0 -0 0</pose>
+        <mass>3.2015</mass>
+        <inertia>
+          <ixx>0.010208</ixx>
+          <ixy>0.00023255</ixy>
+          <ixz>-3.1585e-08</ixz>
+          <iyy>0.013642</iyy>
+          <iyz>-2.3611e-08</iyz>
+          <izz>0.013754</izz>
+        </inertia>
+      </inertial>
+      <collision name='grabber_joint_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/grabber_joint.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='grabber_joint_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/grabber_joint.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='grabber_joint_to_grabber_arm' type='revolute'>
+      <pose relative_to='grabber_joint'>0.08 -0.08 0 0 0 -3.14159</pose>
+      <parent>grabber_joint</parent>
+      <child>grabber_arm</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='grabber_arm'>
+      <pose relative_to='grabber_joint_to_grabber_arm'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.077322 0.07839 -1e-06 0 -0 0</pose>
+        <mass>4.0448</mass>
+        <inertia>
+          <ixx>0.033872</ixx>
+          <ixy>-0.00060138</ixy>
+          <ixz>1.3006e-07</ixz>
+          <iyy>0.013101</iyy>
+          <iyz>-6.6854e-08</iyz>
+          <izz>0.03334</izz>
+        </inertia>
+      </inertial>
+      <collision name='grabber_arm_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/grabber_arm.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='grabber_arm_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/grabber_arm.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='grabber_arm_to_grabber_piston' type='prismatic'>
+      <pose relative_to='grabber_arm'>-0.075 0.1173 0 -3.14159 -0.006183 -3.14159</pose>
+      <parent>grabber_arm</parent>
+      <child>grabber_piston</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.055</lower>
+          <upper>0.08</upper>
+          <effort>1000</effort>
+          <velocity>0.2</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='grabber_piston'>
+      <pose relative_to='grabber_arm_to_grabber_piston'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0.10268 -0 0 -0 0</pose>
+        <mass>1.0304</mass>
+        <inertia>
+          <ixx>0.0040532</ixx>
+          <ixy>-8.5736e-19</ixy>
+          <ixz>-6.7763e-21</ixz>
+          <iyy>0.00080927</iyy>
+          <iyz>-2.6904e-19</iyz>
+          <izz>0.0040532</izz>
+        </inertia>
+      </inertial>
+      <collision name='grabber_piston_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/grabber_piston.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='grabber_piston_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/grabber_piston.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='grabber_piston_to_grabber_hand' type='revolute'>
+      <pose relative_to='grabber_piston'>0 0.2 0 0 -1.162 0</pose>
+      <parent>grabber_piston</parent>
+      <child>grabber_hand</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='grabber_hand'>
+      <pose relative_to='grabber_piston_to_grabber_hand'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.000267 0.031012 0.0003 0 -0 0</pose>
+        <mass>0.27089</mass>
+        <inertia>
+          <ixx>0.00021136</ixx>
+          <ixy>8.8018e-07</ixy>
+          <ixz>-3.3493e-06</ixz>
+          <iyy>0.00026578</iyy>
+          <iyz>-9.9051e-07</iyz>
+          <izz>0.00021215</izz>
+        </inertia>
+      </inertial>
+      <collision name='grabber_hand_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/grabber_hand.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='grabber_hand_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/grabber_hand.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='grabber_hand_to_finger1' type='revolute'>
+      <pose relative_to='grabber_hand'>-0.004968 0.05 -0.032044 -0.51216 -1.3941 0.51889</pose>
+      <parent>grabber_hand</parent>
+      <child>finger1</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>3.3</lower>
+          <upper>4.71239</upper>
+          <effort>1000</effort>
+          <velocity>0.2</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='finger1'>
+      <pose relative_to='grabber_hand_to_finger1'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.015717 -0.04775 -0 0 -0 0</pose>
+        <mass>0.0988537</mass>
+        <inertia>
+          <ixx>9.50543e-05</ixx>
+          <ixy>-2.91256e-05</ixy>
+          <ixz>-3.0888e-11</ixz>
+          <iyy>2.62005e-05</iyy>
+          <iyz>-1.01748e-10</iyz>
+          <izz>0.000107034</izz>
+        </inertia>
+      </inertial>
+      <collision name='finger1_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/finger1.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='finger1_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/finger1.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='grabber_hand_to_finger2' type='revolute'>
+      <pose relative_to='grabber_hand'>0 0.05 0 3.1384 0.036009 3.0543</pose>
+      <parent>grabber_hand</parent>
+      <child>finger2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>1.4835</upper>
+          <effort>1000</effort>
+          <velocity>0.2</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='finger2'>
+      <pose relative_to='grabber_hand_to_finger2'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.025116 0.05258 -0 0 -0 0</pose>
+        <mass>0.0988538</mass>
+        <inertia>
+          <ixx>0.00010294</ixx>
+          <ixy>-1.55944e-05</ixy>
+          <ixz>-1.6117e-11</ixz>
+          <iyy>1.83152e-05</iyy>
+          <iyz>1.07014e-10</iyz>
+          <izz>0.000107034</izz>
+        </inertia>
+      </inertial>
+      <collision name='finger2_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/finger2.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='finger2_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/finger2.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='grabber_hand_to_finger3' type='revolute'>
+      <pose relative_to='grabber_hand'>0.030598 0.05 0.051139 0 0.84423 0</pose>
+      <parent>grabber_hand</parent>
+      <child>finger3</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>1.5708</upper>
+          <effort>1000</effort>
+          <velocity>0.2</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='finger3'>
+      <pose relative_to='grabber_hand_to_finger3'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.007342 0.049754 -0.056843 0 -0 0</pose>
+        <mass>0.0988537</mass>
+        <inertia>
+          <ixx>0.00010294</ixx>
+          <ixy>-1.55944e-05</ixy>
+          <ixz>1.38405e-11</ixz>
+          <iyy>1.83152e-05</iyy>
+          <iyz>1.10521e-10</iyz>
+          <izz>0.000107034</izz>
+        </inertia>
+      </inertial>
+      <collision name='finger3_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/finger3.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='finger3_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot_arm_gazebo/models/finger3.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <static>0</static>
+    <plugin name='gazebo_ros_control' filename='libgazebo_ros_control.so'>
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </model>
+</sdf>
