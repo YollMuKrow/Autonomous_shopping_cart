@@ -66,7 +66,7 @@ cd ~/"your_workspace"
 source devel/setup.bash
 ```
 
-In an another terminal, you compile an other time your project.
+In another terminal, write those command
 
 ```bash
 catkin_make
