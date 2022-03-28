@@ -1,6 +1,7 @@
-# Robotic arm
+# Autonomous Shopping cart 
 
-This project is the second part of the autonomous cart project.
+The autonomous shopping cart is a project developed by Alexis Lheritier and Alexandre Massonié. 
+The goal of this project is to simulate with ROs and Unity an autonomous shopping cart that can take products on a store shelf.
 
 ## Installation
 
@@ -8,7 +9,7 @@ Operating system : Ubuntu 20.04.4 LTS
 ROS 1 version : noetic
 ROS 1 compiler : catkin
 
-First, you need to install ros on your Ubuntu system.
+First, you need to install ROS on your Ubuntu system.
 Check the [ROS documentation](http://wiki.ros.org/noetic/Installation/Ubuntu) for installing ROS noetic.
 
 [Rviz installation](http://wiki.ros.org/noetic/Installation/Ubuntu):
@@ -35,10 +36,10 @@ sudo apt-get install ros-noetic-moveit
 sudo apt-get install ros-noetic-rosbridge-server
 ```
 
-When everything is installed, you need to configure yout ROS environment and create your worspace.
+When everything is installed, you need to configure your ROS environment and create your workspace.
 Check this [tutorial](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment) for more information.
 
-When your workspace is create (ie : catkin_make does not return an error), you need to unzip th archive and move all file in "your_workspace"/src/.
+When your workspace is created (i.e., catkin_make does not return an error), you need to unzip the archive and move all files in "your_workspace"/src/.
 
 The launch the command :
 
@@ -47,7 +48,7 @@ catkin_make
 ```
 
 The catkin compiler will compile all the files.
-The dependencies will be create in the same time.
+The dependencies will be created at the same time.
 
 Before launching the different files, you need to :
 
@@ -57,9 +58,7 @@ Before launching the different files, you need to :
 roscore
 ```
 
-Open a new terminal and
-
-- source your project :
+Open a new terminal and source your project :
 
 ```bash
 cd ~/"your_workspace"
